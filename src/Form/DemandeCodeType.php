@@ -7,6 +7,8 @@ use App\Entity\Fonctions;
 use App\Entity\Softs;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,11 +18,17 @@ class DemandeCodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom')
-            ->add('Prenom')
-            ->add('DateDebut')
-            ->add('DateFin')
-            ->add('Secteur')
+            ->add('Nom', TextType::class, ['required' => true])
+            ->add('Prenom', TextType::class, ['required' => true])
+            ->add('DateDebut', DateType::class, [
+                'widget' => 'single_text',
+                'required' => false
+            ])
+            ->add('DateFin', DateType::class, [
+                'widget' => 'single_text',
+                'required' => false
+            ])
+            ->add('Secteur', TextType::class)
             ->add('Softs', EntityType::class,[
                 'class' => Softs::class,
                 'choice_label' => 'Libellesoft',

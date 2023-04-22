@@ -1,17 +1,54 @@
+{% extends 'base.html.twig' %}
 
-
-{% block title %}Les Comptes{% endblock %}
+{% block title %}Les Comptes temporaires{% endblock %}
 
 {% block body %}
-<ol>
-        {% for Comptes in Comptes %}
-                <li>{{ Comptes.Soft.LibelleSoft }}  {{ Comptes.Fonction.LibelleFonction }}  {{ Comptes.Login }}  {{ Comptes.Password }} {{ Comptes.IsUsed }} 
-                {% if Comptes.Agents is not null %}
-                        Attribué à {{ Comptes.Agents.Nom }} {{ Comptes.Agents.Prenom}}
-                {% endif %}
-                        </li>
-        {% endfor %}
-</ol>
+
+<h1>Les comptes temporaires existants</h1>
+<div class="container-fluid">
+<table class="table table-striped table-bordered" id="sortTable">
+<thead>
+<tr>
+<th>Soft</th>
+<th>Fonction</th>
+<th>Login</th>
+<th>Mot de passe</th>
+<th>Disponible</th>
+<th>Par :</th>
+</tr>
+</thead>
+<tbody>
+{% for Comptes in Comptes %}
+<tr>
+<td>{{ Comptes.Soft.LibelleSoft }}</td>
+<td>{{ Comptes.Fonction.LibelleFonction }}</td>
+<td>{{ Comptes.Login }}</td>
+<td>
+{% if Comptes.IsUsed == 0 %}
+{{ Comptes.Password }}
+{% endif %}
+</td>
+<td>
+{% if Comptes.IsUsed == 0 %}
+<i class="fa-solid fa-square-check" style="color: #11a23c;"></i>
+{% else %}
+<i class="fa-solid fa-circle-xmark" style="color: #e01039;"></i>
+{% endif %}
+</td>
+<td>
+{% if Comptes.Agents is not null %}
+{{ Comptes.Agents.Nom }} {{ Comptes.Agents.Prenom}}
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+<script>
+$('#sortTable').DataTable();
+</script>
 <div>
 <a href='/Admin'>Retour</a>
 </div>

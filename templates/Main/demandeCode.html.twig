@@ -3,16 +3,33 @@
 {% block title %}Demander un code temporaire{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <h4>Demande de code temporaire</h4>
-            </div>
-        </div>
+   <h3>Demande de code temporaire</h3>
+        {{ form_start(form)}}  
 
-            {{ form(form) }}
-    </div>
-<div>
+
+        {{ form_label(form.Nom)}}
+        {{ form_widget(form.Nom)}}
+        {{ form_label(form.Prenom)}}
+        {{ form_widget(form.Prenom)}}
+        {{ form_label(form.DateDebut)}}
+        {{ form_widget(form.DateDebut)}}</div>
+        {{ form_label(form.DateFin)}}
+        {{ form_widget(form.DateFin)}}
+        {{ form_label(form.Secteur)}}
+        {{ form_widget(form.Secteur)}}
+        {{ form_label(form.Softs)}}
+        {{ form_widget(form.Softs)}}
+        {{ form_label(form.Fonction)}}
+        {{ form_widget(form.Fonction)}}
+        {{ form_label(form.Ajouter)}}
+        {{ form_widget(form.Ajouter)}}
+
+
+        {{ form_end(form)}}
+
+
+
+
 
 <a href='/Admin'>Retour</a>
 </div>
