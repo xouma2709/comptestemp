@@ -28,7 +28,7 @@ class GenererComptesType extends AbstractType
                 'multiple' => false,
                 'required' => true
             ])
-            ->add('Generer', SubmitType::class)
+            ->add('Generer_10_comptes', SubmitType::class)
 
         ;
     }

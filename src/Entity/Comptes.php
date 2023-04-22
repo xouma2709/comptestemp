@@ -47,6 +47,11 @@ class Comptes
      */
     private $agents;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateAttribution;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +130,18 @@ class Comptes
         }
 
         $this->agents = $agents;
+
+        return $this;
+    }
+
+    public function getDateAttribution(): ?\DateTimeInterface
+    {
+        return $this->dateAttribution;
+    }
+
+    public function setDateAttribution(\DateTimeInterface $dateAttribution): self
+    {
+        $this->dateAttribution = $dateAttribution;
 
         return $this;
     }

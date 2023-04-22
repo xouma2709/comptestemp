@@ -1,0 +1,13 @@
+{% block title %}Demande approuvée{% endblock %}
+
+{% block body %}
+
+<p>Résumé de la demande : </p>
+<p>Demande de code effectuée pour l'agent {{ Agents.Nom }} {{ Agents.Prenom }}</p>
+<p>Voici les acces qu'il faut transmettre à l'agent</p>
+<p>Login : {{ Comptes.Login }}</p>
+<p>Mot de passe : {{ Comptes.Password }}
+<div>
+<a href='/Main'>Retour</a>
+</div>
+{% endblock %}

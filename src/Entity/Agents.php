@@ -28,12 +28,12 @@ class Agents
     private $Prenom;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $DateDebut;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $DateFin;
 
@@ -59,6 +59,11 @@ class Agents
      * @ORM\JoinColumn(nullable=false)
      */
     private $Compte;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateDemande;
 
     public function getId(): ?int
     {
@@ -157,6 +162,18 @@ class Agents
     public function setCompte(Comptes $Compte): self
     {
         $this->Compte = $Compte;
+
+        return $this;
+    }
+
+    public function getDateDemande(): ?\DateTimeInterface
+    {
+        return $this->dateDemande;
+    }
+
+    public function setDateDemande(\DateTimeInterface $dateDemande): self
+    {
+        $this->dateDemande = $dateDemande;
 
         return $this;
     }

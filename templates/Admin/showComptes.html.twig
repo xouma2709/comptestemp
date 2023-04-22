@@ -5,7 +5,11 @@
 {% block body %}
 <ol>
         {% for Comptes in Comptes %}
-                <li>{{ Comptes.Soft.LibelleSoft }}  {{ Comptes.Fonction.LibelleFonction }}  {{ Comptes.Login }}  {{Comptes.Password }}</li>
+                <li>{{ Comptes.Soft.LibelleSoft }}  {{ Comptes.Fonction.LibelleFonction }}  {{ Comptes.Login }}  {{ Comptes.Password }} {{ Comptes.IsUsed }} 
+                {% if Comptes.Agents is not null %}
+                        Attribué à {{ Comptes.Agents.Nom }} {{ Comptes.Agents.Prenom}}
+                {% endif %}
+                        </li>
         {% endfor %}
 </ol>
 <div>

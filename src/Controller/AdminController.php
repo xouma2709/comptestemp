@@ -25,7 +25,7 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        
+        //Page d'accueil de l'administration de l'appli
             return $this->render('Admin/index.html.twig');
         
     }
@@ -35,6 +35,7 @@ class AdminController extends AbstractController
      */
     public function showFonctions(FonctionsRepository $repo) : Response
     {
+        //Récupération de toutes les fonctions existantes
         $fonctions = $repo->findBy([],['LibelleFonction' => 'ASC']);
         return $this->render('Admin/showFonctions.html.twig', ['Fonctions' => $fonctions]);
 
@@ -47,21 +48,23 @@ class AdminController extends AbstractController
     public function addFonction(Request $request, EntityManagerInterface $em, FonctionsRepository $repo): Response
     {
         
+        //création d'une fonction
         $fonction= new Fonctions();
         $form = $this->createForm(AddFonctionType::class, $fonction);
 
         $form->handleRequest($request);
+        //Si formulaire rempli correctement
         if ($form->isSubmitted() && $form->isValid())
         {
 
-
+        //ajout de la fonction en base
         $em ->persist($fonction);
         $em->flush();
 
         return $this->redirectToRoute('Admin') ;
 
         }
-
+        //Affichage du formulaire
         return $this->render('Admin/addFonction.html.twig', [
             'form' => $form->createView()
             ]);
@@ -72,6 +75,7 @@ class AdminController extends AbstractController
      */
     public function deleteFonction($id, Request $request, EntityManagerInterface $em, FonctionsRepository $repo)
     {
+        //Suppression de la fonction
         $fonction = $repo->find($id);
         $em -> remove($fonction);
         $em -> flush();
@@ -86,6 +90,7 @@ class AdminController extends AbstractController
      */
     public function showSofts(SoftsRepository $repo) : Response
     {
+        //Récupération de tous les softs existantes
         $Softs = $repo->findBy([],['LibelleSoft' => 'ASC']);
         return $this->render('Admin/showSofts.html.twig', ['Softs' => $Softs]);
 
@@ -97,15 +102,18 @@ class AdminController extends AbstractController
      */
     public function addSoft(Request $request, EntityManagerInterface $em, SoftsRepository $repo): Response
     {
-        
+        //création d'un soft
         $Soft= new Softs();
         $form = $this->createForm(AddSoftType::class, $Soft);
 
-        $form->handleRequest($request);
+        $form->handleRequest($request);   
+
+        //Si formulaire rempli correctement
+
         if ($form->isSubmitted() && $form->isValid())
         {
 
-
+        //On ajoute le soft en base
         $em ->persist($Soft);
         $em->flush();
 
@@ -123,6 +131,7 @@ class AdminController extends AbstractController
      */
     public function deleteSoft($id, Request $request, EntityManagerInterface $em, SoftsRepository $repo)
     {
+        //Suppression du soft en base
         $Soft = $repo->find($id);
         $em -> remove($Soft);
         $em -> flush();
@@ -135,40 +144,51 @@ class AdminController extends AbstractController
      */
     public function genererComptes(Request $request, EntityManagerInterface $em, ComptesRepository $repo)
     {
-
-
-        $compte = new Comptes();
-
+        //Fonction de génération de mot de passe aléatoire sans caractères similaires
         function passgen2($nbChar){
             return substr(str_shuffle('abcdefghijkmnpqrstuvwxyzABCEFGHJKMNPQRSTUVWXYZ23456789'),1, $nbChar);
             }
-        
-        $form = $this->createForm(GenererComptesType::class, $compte);
 
-        $form->handleRequest($request);
+        //On cherche l'id du dernier compté temporaire créé
         $lastcompte = $repo->findOneBy([],['id'=>'desc']);
         $idlastcompte = $lastcompte->getId();
+
+        //définition des variables pour la boucle de création des comptes
         $i = $idlastcompte + 1;
+        $j = $i + 10;
+
+        //Récupération des données du formulaire rempli
+        $compte = new Comptes();
+        $form = $this->createForm(GenererComptesType::class, $compte);
+    
+        $form->handleRequest($request);
+        //Si le formulaire est rempli
         if ($form->isSubmitted() && $form->isValid())
         {
+            //Récupération des données saisies
+            $fonctioncode = $compte->getFonction()->getCode();
+            $soft = $compte -> getSoft();
+            $fonction = $compte->getFonction();
+            //Boucle pour la création de 10 comptes d'un coup
+            for ($i; $i < $j; $i++)
+            {
+            //Création du compte à l'interieur de la boucle
+            $comptes = new Comptes();
+            //Définition de l'identifiant de connexion sous la forme "CodeFonctionTempId"
+            $login = $fonctioncode.'temp'.$i;
+            //Génération du mot de passe
+            $pwd = passgen2(12);
+            //Attitrbution des valeurs du formulaire au compte
+            $comptes -> setLogin($login);
+            $comptes -> setFonction($fonction);
+            $comptes -> setSoft($soft);
+            $comptes -> setPassword($pwd);
+            $comptes -> setIsUsed(0);
+            //envoi du compte en base
+            $em -> persist($comptes);
+            $em ->flush();
 
-        
-    
-        $fonctioncode = $compte->getFonction()->getCode();
-        $soft = $compte -> getSoft();
-        
-        $login = $fonctioncode.'temp'.$i;
-
-        $pwd = passgen2(12);
-        $compte -> setLogin($login);
-
-        $compte -> setPassword($pwd);
-        $compte -> setIsUsed(0);
-
-        $em -> persist($compte);
-        $em ->flush();
-
-
+            }
 
         
 
@@ -176,7 +196,7 @@ class AdminController extends AbstractController
 
 
        }
-
+       //Afffichage du formulaire
         return $this->render('Admin/genererComptes.html.twig', [
             'form' => $form->createView()
             ]);
@@ -189,7 +209,9 @@ class AdminController extends AbstractController
      * @Route("Admin/showComptes", name="showComptes")
      */
     public function showComptes(ComptesRepository $repo){
+        //Requete pour recuperer les comptes deja créés
         $comptes = $repo->findAll();
+        //Affichage de la page
         return $this->render('Admin/showComptes.html.twig', ['Comptes' => $comptes]);
 
     }
