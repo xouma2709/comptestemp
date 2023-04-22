@@ -1,0 +1,14 @@
+
+
+{% block title %}Les Comptes{% endblock %}
+
+{% block body %}
+<ol>
+        {% for Comptes in Comptes %}
+                <li>{{ Comptes.Soft.LibelleSoft }}  {{ Comptes.Fonction.LibelleFonction }}  {{ Comptes.Login }}  {{Comptes.Password }}</li>
+        {% endfor %}
+</ol>
+<div>
+<a href='/Admin'>Retour</a>
+</div>
+{% endblock %}

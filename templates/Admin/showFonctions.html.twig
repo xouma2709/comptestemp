@@ -1,0 +1,14 @@
+
+
+{% block title %}Les fonctions{% endblock %}
+
+{% block body %}
+<ol>
+        {% for Fonctions in Fonctions %}
+        <li> {{ Fonctions.LibelleFonction }} <a href="/Admin/deleteFonction/{{ Fonctions.id }}">Supprimer</a></li>
+        {% endfor %}
+</ol>
+<div>
+<a href='/Admin'>Retour</a>
+</div>
+{% endblock %}

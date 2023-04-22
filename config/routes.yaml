@@ -1,0 +1,11 @@
+index:
+    path: /
+    controller: App\Controller\SecurityController::index
+
+admin:
+    path: /Admin
+    controller: App\Controller\AdminController::index
+
+default:
+    path: /Main
+    controller: App\Controller\MainController::demandeCode

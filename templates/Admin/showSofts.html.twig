@@ -1,0 +1,14 @@
+
+
+{% block title %}Les Softs{% endblock %}
+
+{% block body %}
+<ol>
+        {% for Softs in Softs %}
+        <li> {{ Softs.LibelleSoft }} <a href="/Admin/deleteSoft/{{ Softs.id }}">Supprimer</a></li>
+        {% endfor %}
+</ol>
+<div>
+<a href='/Admin'>Retour</a>
+</div>
+{% endblock %}
