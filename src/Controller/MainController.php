@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Agents;
 use App\Entity\Comptes;
+use App\Entity\Documents;
 use App\Form\DemandeCodeType;
+use App\Form\AddDocumentType;
 use App\Repository\AgentsRepository;
 use App\Repository\ComptesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -40,12 +42,14 @@ class MainController extends AbstractController
         $prenomagent = $agent->getPrenom();
         $prenomagents = ucwords($prenomagent);
         //On vérifie sur vision que l'agent n'est pas connu
-
+        
 
         //Si l'agent est connu des services informatique
 
 
         //S'il n'est pas connu
+        
+
         //On cherche un compte qui correspond aux critères
         $compte = $repocomptes->findBy(['Fonction' => $fonction, 'Soft' => $soft, 'IsUsed' => 0],['id' => 'ASC'],1,[]);
         //On récupere le compte
@@ -62,6 +66,48 @@ class MainController extends AbstractController
         //On envoie l'agent dans la bdd
         $em ->persist($agent);
         $em->flush();
+        
+
+
+
+        return $this->render('Main/demandePieceJointe.html.twig',['Agents' => $agent]);
+
+        }
+
+        return $this->render('Main/demandeCode.html.twig', [
+            'form' => $form->createView()
+            ]);
+    }
+
+    /**
+     * @Route("/Main/{id}/affichercode", name="affichercode")
+     */
+    public function afficherCode($id, AgentsRepository $repo)
+    {
+        $agent = $repo->find($id);
+        return $this->render('Main/affichageCode.html.twig',['Agents' => $agent]);
+    }
+
+    /**
+     * @Route("/Main/{id}/ajoutpj", name="ajoutpj")
+     */
+    public function ajoutPJ($id, Request $request, EntityManagerInterface $em, AgentsRepository $repo, MailerInterface $mailer)
+    {
+        $agent = $repo->find($id);
+        $document= new Documents();
+        $form = $this->createForm(AddDocumentType::class, $document);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+        $document->setAgent($agent);
+        $document->setNomDocument('identite_agent'.$id);
+        $em ->persist($document);
+        $em->flush();
+        return $this->render('Main/affichageCode.html.twig',['Agents' => $agent]);
+
+
         //Envoi de l'email à hotline et dpi pour la traçabilité
         // $email = (new Email())
         //    ->from('dpi@ch-calais.fr')
@@ -70,15 +116,11 @@ class MainController extends AbstractController
         //    ->text('Email de test pour tester la config');
         // $mailer->send($email);
 
-
-
-        return $this->render('Main/affichageCode.html.twig',['Agents' => $agent, 'Comptes' => $compteagent]);
-
         }
-
-        return $this->render('Main/demandeCode.html.twig', [
+        return $this->render('Main/ajoutPieceJointe.html.twig', [
             'form' => $form->createView()
             ]);
+
     }
     
 }

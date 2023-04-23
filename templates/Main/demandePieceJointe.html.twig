@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demander un code temporaire{% endblock %}
+
+{% block body %}
+Vous avez demandé un code temporaire {{ Agents.Softs.LibelleSoft }} pour l'agent
+{{ Agents.Nom }} {{ Agents.Prenom }}
+
+Avez-vous sa pièce d'identité?
+
+<a href="/Main/{{ Agents.id }}/affichercode">Non</a>
+<a href="/Main/{{ Agents.id }}/ajoutpj">Oui</a>
+
+{% endblock %}

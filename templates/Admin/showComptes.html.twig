@@ -15,6 +15,7 @@
 <th>Mot de passe</th>
 <th>Disponible</th>
 <th>Par :</th>
+<th>Pièce d'identité fournie</th>
 </tr>
 </thead>
 <tbody>
@@ -39,6 +40,22 @@
 {% if Comptes.Agents is not null %}
 {{ Comptes.Agents.Nom }} {{ Comptes.Agents.Prenom}}
 {% endif %}
+</td>
+<td>
+{% if Comptes.Agents is not null %}
+
+{% for documents in Comptes.Agents.Documents %}
+{% if documents.NomDocument is not null %}
+<i class="fa-solid fa-square-check" style="color: #11a23c;"></i>
+
+{% else %}
+<i class="fa-solid fa-circle-xmark" style="color: #e01039;"></i>
+
+{% endif %}
+
+{% endfor %}
+{% endif %}
+
 </td>
 </tr>
 {% endfor %}

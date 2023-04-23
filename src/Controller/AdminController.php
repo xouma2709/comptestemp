@@ -9,6 +9,7 @@ use App\Form\AddFonctionType;
 use App\Form\AddSoftType;
 use App\Form\GenererComptesType;
 use App\Repository\ComptesRepository;
+use App\Repository\AgentsRepository;
 use App\Repository\FonctionsRepository;
 use App\Repository\SoftsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -208,13 +209,25 @@ class AdminController extends AbstractController
     /**
      * @Route("Admin/showComptes", name="showComptes")
      */
-    public function showComptes(ComptesRepository $repo){
+    public function showComptes(ComptesRepository $repo, AgentsRepository $repoagents){
         //Requete pour recuperer les comptes deja créés
         $comptes = $repo->findAll();
+        $agents = $repoagents->findAll();
         //Affichage de la page
-        return $this->render('Admin/showComptes.html.twig', ['Comptes' => $comptes]);
+        return $this->render('Admin/showComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);
 
     }
+    /**
+          * @Route("/Admin/{id}/voirDocument/{doc}", name="voirDocument")
+          */
+          public function voirDocument($id,$doc, Request $request, EntityManagerInterface $em, AgentsRepository $repo, DocumentsRepository $repodoc): Response
+          {
+            $agents = $repo->find($id);
+
+            $file = new File($this->getParameter('kernel.project_dir').'/public/documents/'.$id.'/'.$doc);
+
+            return $this->file($file, 'my_invoice.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
+          }
 
 
 }

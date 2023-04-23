@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AgentsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -64,6 +66,16 @@ class Agents
      * @ORM\Column(type="date")
      */
     private $dateDemande;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Documents::class, mappedBy="Agent")
+     */
+    private $documents;
+
+    public function __construct()
+    {
+        $this->documents = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -174,6 +186,36 @@ class Agents
     public function setDateDemande(\DateTimeInterface $dateDemande): self
     {
         $this->dateDemande = $dateDemande;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Documents>
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Documents $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Documents $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getAgent() === $this) {
+                $document->setAgent(null);
+            }
+        }
 
         return $this;
     }

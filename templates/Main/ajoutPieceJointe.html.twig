@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demander un code temporaire{% endblock %}
+
+{% block body %}
+   <h3>Envoyer la piece d'identité</h3>
+        {{ form_start(form)}}  
+
+        {{ form_label(form.Attachment)}}
+        {{ form_widget(form.Attachment)}}
+        {{ form_label(form.Ajouter)}}
+        {{ form_widget(form.Ajouter)}}
+
+        {{ form_end(form)}}
+{% endblock %}
