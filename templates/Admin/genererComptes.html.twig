@@ -10,8 +10,18 @@
             </div>
         </div>
 
-            {{ form(form) }}
-    </div>
+ {{ form_start(form)}}  
+
+
+        {{ form_label(form.Fonction)}}
+        {{ form_widget(form.Fonction)}}
+        {{ form_label(form.Soft)}}
+        {{ form_widget(form.Soft)}}
+        {{ form_label(form.Generer_10_comptes)}}
+        {{ form_widget(form.Generer_10_comptes)}}
+
+
+        {{ form_end(form)}}    </div>
 <div>
 
 <a href='/Admin'>Retour</a>

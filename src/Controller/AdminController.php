@@ -12,11 +12,15 @@ use App\Repository\ComptesRepository;
 use App\Repository\AgentsRepository;
 use App\Repository\FonctionsRepository;
 use App\Repository\SoftsRepository;
+use App\Repository\DocumentsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
@@ -193,7 +197,7 @@ class AdminController extends AbstractController
 
         
 
-        return $this->redirectToRoute('Admin') ;
+        return $this->redirectToRoute('showLastComptes') ;
 
 
        }
@@ -217,17 +221,29 @@ class AdminController extends AbstractController
         return $this->render('Admin/showComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);
 
     }
-    /**
-          * @Route("/Admin/{id}/voirDocument/{doc}", name="voirDocument")
-          */
-          public function voirDocument($id,$doc, Request $request, EntityManagerInterface $em, AgentsRepository $repo, DocumentsRepository $repodoc): Response
-          {
-            $agents = $repo->find($id);
 
-            $file = new File($this->getParameter('kernel.project_dir').'/public/documents/'.$id.'/'.$doc);
+    /**
+     * @Route("Admin/showLastComptes", name="showLastComptes")
+     */
+    public function showLastComptes(ComptesRepository $repo, AgentsRepository $repoagents){
+        //Requete pour recuperer les comptes deja créés
+        $comptes = $repo->findBy([],['id'=>'desc'],10);;
+        $agents = $repoagents->findAll();
+        //Affichage de la page
+        return $this->render('Admin/showLastComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);
+
+    }
+    /**
+    * @Route("/Admin/voirDocument/{doc}", name="voirDocument")
+    */
+    public function voirDocument($doc, Request $request, EntityManagerInterface $em, DocumentsRepository $repodoc): Response
+    {
+            $document = $repodoc->find($doc);
+            $nomdoc = $document->getNomDocument(); 
+            $file = new File($this->getParameter('kernel.project_dir').'/public/documents/'.$nomdoc);
 
             return $this->file($file, 'my_invoice.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
-          }
+    }
 
 
 }

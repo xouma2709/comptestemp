@@ -94,17 +94,28 @@ class MainController extends AbstractController
     public function ajoutPJ($id, Request $request, EntityManagerInterface $em, AgentsRepository $repo, MailerInterface $mailer)
     {
         $agent = $repo->find($id);
-        $document= new Documents();
-        $form = $this->createForm(AddDocumentType::class, $document);
+        $doc= new Documents();
+        $form = $this->createForm(AddDocumentType::class, $doc);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
-        {
+        {          
 
-        $document->setAgent($agent);
-        $document->setNomDocument('identite_agent'.$id);
-        $em ->persist($document);
-        $em->flush();
+            $uploadedFile = $form['Attachment']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/documents/';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = 'Piece_Identité'.$id.'.pdf';
+
+            $uploadedFile->move(
+               $destination,
+               $newFilename
+           );
+
+           $doc->setNomDocument($newFilename);
+           $doc->setAttachment($destination);
+           $doc->setagent($agent);
+           $em->persist($doc);
+           $em->flush();
         return $this->render('Main/affichageCode.html.twig',['Agents' => $agent]);
 
 

@@ -10,7 +10,18 @@
             </div>
         </div>
 
-            {{ form(form) }}
+        {{ form_start(form)}}  
+
+
+        {{ form_label(form.code)}}
+        {{ form_widget(form.code)}}
+        {{ form_label(form.LibelleFonction)}}
+        {{ form_widget(form.LibelleFonction)}}
+        {{ form_label(form.Ajouter)}}
+        {{ form_widget(form.Ajouter)}}
+
+
+        {{ form_end(form)}}
     </div>
 <div>
 
