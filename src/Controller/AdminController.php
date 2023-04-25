@@ -61,7 +61,6 @@ class AdminController extends AbstractController
         //Si formulaire rempli correctement
         if ($form->isSubmitted() && $form->isValid())
         {
-
         //ajout de la fonction en base
         $em ->persist($fonction);
         $em->flush();
@@ -189,6 +188,7 @@ class AdminController extends AbstractController
             $comptes -> setSoft($soft);
             $comptes -> setPassword($pwd);
             $comptes -> setIsUsed(0);
+            $comptes -> setIsCreated(0);
             //envoi du compte en base
             $em -> persist($comptes);
             $em ->flush();
@@ -209,6 +209,33 @@ class AdminController extends AbstractController
 
     }
 
+    /**
+     * @Route("Admin/changerStatut/{id}", name="changerStatut")
+     */
+    public function changerStatut($id, EntityManagerInterface $em, ComptesRepository $repo, AgentsRepository $repoagents){
+
+        $compte = $repo->find($id);
+        $statut = $compte->isIsCreated();
+        $agents = $repoagents->findAll();
+
+
+        if ($statut == 1){
+            $compte -> isIsCreated(0);
+            $em ->persist($compte);
+            $em->flush();
+        }
+        else {
+            $compte -> setIsCreated(1);
+            $em ->persist($compte);
+            $em->flush();
+
+        }
+
+        return $this->redirectToRoute('showComptes') ;
+
+
+    }
+
 
     /**
      * @Route("Admin/showComptes", name="showComptes")
@@ -218,6 +245,7 @@ class AdminController extends AbstractController
         $comptes = $repo->findAll();
         $agents = $repoagents->findAll();
         //Affichage de la page
+
         return $this->render('Admin/showComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);
 
     }
@@ -227,7 +255,7 @@ class AdminController extends AbstractController
      */
     public function showLastComptes(ComptesRepository $repo, AgentsRepository $repoagents){
         //Requete pour recuperer les comptes deja créés
-        $comptes = $repo->findBy([],['id'=>'desc'],10);;
+        $comptes = $repo->findBy([],['id'=>'asc'],10);;
         $agents = $repoagents->findAll();
         //Affichage de la page
         return $this->render('Admin/showLastComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);

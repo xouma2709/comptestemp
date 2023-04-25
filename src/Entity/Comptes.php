@@ -52,6 +52,11 @@ class Comptes
      */
     private $dateAttribution;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isCreated;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -142,6 +147,18 @@ class Comptes
     public function setDateAttribution(\DateTimeInterface $dateAttribution): self
     {
         $this->dateAttribution = $dateAttribution;
+
+        return $this;
+    }
+
+    public function isIsCreated(): ?bool
+    {
+        return $this->isCreated;
+    }
+
+    public function setIsCreated(bool $isCreated): self
+    {
+        $this->isCreated = $isCreated;
 
         return $this;
     }

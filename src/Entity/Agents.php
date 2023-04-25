@@ -72,6 +72,11 @@ class Agents
      */
     private $documents;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPJ;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -216,6 +221,18 @@ class Agents
                 $document->setAgent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsPJ(): ?bool
+    {
+        return $this->isPJ;
+    }
+
+    public function setIsPJ(bool $isPJ): self
+    {
+        $this->isPJ = $isPJ;
 
         return $this;
     }

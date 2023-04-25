@@ -9,6 +9,7 @@
 <table class="table table-striped table-bordered" id="sortTable">
 <thead>
 <tr>
+<th>Etat</th>
 <th>Soft</th>
 <th>Fonction</th>
 <th>Login</th>
@@ -21,6 +22,15 @@
 <tbody>
 {% for Comptes in Comptes %}
 <tr>
+<td>
+{%if Comptes.IsCreated == 0 %}
+<a href={{ path('changerStatut',{'id': Comptes.id} ) }}>a créer</a>
+{% else %}
+<a href="/changerStatut/{{Comptes.id}}">crée</a>
+
+{% endif %}
+
+</td>
 <td>{{ Comptes.Soft.LibelleSoft }}</td>
 <td>{{ Comptes.Fonction.LibelleFonction }}</td>
 <td>{{ Comptes.Login }}</td>
@@ -44,13 +54,18 @@
 <td>
 {% if Comptes.Agents is not null %}
 
-    {% if Comptes.Agents.Documents is not null %}
-    {% for doc in Comptes.Agents.Documents %}
-    
-    {% if Comptes.agents.id %}
-        <a href={{ path('voirDocument',{'doc': doc.id} ) }} target="_blank" style="color:black;"><i class="fa-solid fa-eye" style="color: #3471da;"></i></a>  
-    {% endif %}
-    {% endfor %}
+    {% if Comptes.Agents.isPJ == 0 %}
+
+    Non fournie
+    {% else %}
+        {% if Comptes.Agents.Documents is not null %}
+            {% for doc in Comptes.Agents.Documents %}
+            
+                {% if Comptes.agents.id %}
+                    <a href={{ path('voirDocument',{'doc': doc.id} ) }} target="_blank" style="color:black;"><i class="fa-solid fa-eye" style="color: #3471da;"></i></a>  
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     {% endif %}
 {% else %}
     N/A 

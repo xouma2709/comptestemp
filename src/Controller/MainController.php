@@ -62,7 +62,7 @@ class MainController extends AbstractController
         //On attribut le compte à l'agent
         $agent -> setCompte($compteagent);
         $agent -> setDateDemande(\DateTime::createFromFormat ('Y-m-d', $today));        
-        
+        $agent->setIsPJ(0);
         //On envoie l'agent dans la bdd
         $em ->persist($agent);
         $em->flush();
@@ -115,6 +115,10 @@ class MainController extends AbstractController
            $doc->setAttachment($destination);
            $doc->setagent($agent);
            $em->persist($doc);
+           $em->flush();
+
+           $agent->setIsPJ(1);
+           $em->persist($agent);
            $em->flush();
         return $this->render('Main/affichageCode.html.twig',['Agents' => $agent]);
 
