@@ -3,12 +3,21 @@
 {% block title %}Les Softs{% endblock %}
 
 {% block body %}
-<ol>
-        {% for Softs in Softs %}
-        <li> {{ Softs.LibelleSoft }} <a href="/Admin/deleteSoft/{{ Softs.id }}">Supprimer</a></li>
-        {% endfor %}
-</ol>
-<div>
-<a href='/Admin'>Retour</a>
+{% include 'menutab.html.twig' %}
+
+
+
+<div class="container-fluid">
+        <div class="col">
+        <h4>Les softs existants</h4>
+        
+               <ul>
+                {% for Softs in Softs %}
+                <li> {{ Softs.LibelleSoft }} <a href="/Admin/deleteSoft/{{ Softs.id }}"><i class="fa-solid fa-trash" style="color: #48494c;"></i></a></li>
+                {% endfor %}
+        </ul>
+        
+    </div>
 </div>
+
 {% endblock %}

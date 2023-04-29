@@ -3,26 +3,27 @@
 {% block title %}Ajouter un soft{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <h4>Ajout d'un soft</h4>
-            </div>
-        </div>
+{% include 'menutab.html.twig' %}
 
-           {{ form_start(form)}}  
+    <div class="container-fluid">
+        {{ form_start(form)}}  
+
+        <form>
+            <div class="col-2">
+                <h4>Ajout d'un soft</h4>
+                <div class="form-group">
 
 
         {{ form_label(form.LibelleSoft)}}
-        {{ form_widget(form.LibelleSoft)}}
+        {{ form_widget(form.LibelleSoft, {'attr': {'class':'form-control'}})}}
+        </div>
+        <div class="form-group">
+
         {{ form_label(form.Ajouter)}}
-        {{ form_widget(form.Ajouter)}}
+        {{ form_widget(form.Ajouter, {'attr': {'class':'btn btn-dark btn-block'}})}}
 
-
+            </div></div></form>
         {{ form_end(form)}}
     </div>
-<div>
 
-<a href='/Admin'>Retour</a>
-</div>
 {% endblock %}

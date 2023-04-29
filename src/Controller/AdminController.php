@@ -195,7 +195,7 @@ class AdminController extends AbstractController
 
             }
 
-        
+
 
         return $this->redirectToRoute('showLastComptes') ;
 
@@ -258,9 +258,36 @@ class AdminController extends AbstractController
         $comptes = $repo->findBy([],['id'=>'asc'],10);;
         $agents = $repoagents->findAll();
         //Affichage de la page
-        return $this->render('Admin/showLastComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);
+        return $this->render('Admin/showComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);
 
     }
+
+    /**
+     * @Route("Admin/showComptesDispo", name="showComptesDispo")
+     */
+    public function showComptesDispo(ComptesRepository $repo, AgentsRepository $repoagents){
+        //Requete pour recuperer les comptes deja créés
+        $comptes = $repo->findBy(['IsUsed' => 0],['id'=>'asc'],);;
+        $agents = $repoagents->findAll();
+        //Affichage de la page
+        return $this->render('Admin/showComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);
+
+    }
+
+    /**
+     * @Route("Admin/showComptesUsed", name="showComptesUsed")
+     */
+    public function showComptesUsed(ComptesRepository $repo, AgentsRepository $repoagents){
+        //Requete pour recuperer les comptes deja créés
+        $comptes = $repo->findBy(['IsUsed' => 1],['id'=>'asc'],10);;
+        $agents = $repoagents->findAll();
+        //Affichage de la page
+        return $this->render('Admin/showComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);
+
+    }
+
+
+
     /**
     * @Route("/Admin/voirDocument/{doc}", name="voirDocument")
     */

@@ -3,27 +3,42 @@
 {% block title %}Ajouter une fonction{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
+{% include 'menutab.html.twig' %}
+
+    <div class="container-fluid">
+                <div class="row">
             <div class="col s12 m12 l12">
                 <h4>Générer des comptes pour</h4>
             </div>
         </div>
 
  {{ form_start(form)}}  
+ <form>
+    <h4>Ajout d'une fonction</h4>
 
+    <div class="form-row">
+        <div class="form-group col-md-1">
+        <label>{{ form_label(form.Soft)}}</label> 
+            {{ form_widget(form.Soft, {'attr': {'class':'form-control'}})}}
+    
+        </div>
+        <div class="form-group col-md-2">
 
-        {{ form_label(form.Fonction)}}
-        {{ form_widget(form.Fonction)}}
-        {{ form_label(form.Soft)}}
-        {{ form_widget(form.Soft)}}
+       <label> {{ form_label(form.Fonction)}}</label>
+        
+        {{ form_widget(form.Fonction, {'attr': {'class':'form-control'}})}}
+        </div></div>
+
+        <div class="form-row">
+
+            <div class="form-group col-3">
+    
         {{ form_label(form.Generer_10_comptes)}}
-        {{ form_widget(form.Generer_10_comptes)}}
-
+        {{ form_widget(form.Generer_10_comptes, {'attr': {'class':'btn btn-dark btn-block'}})}}
+            </div></div>
 
         {{ form_end(form)}}    </div>
 <div>
 
-<a href='/Admin'>Retour</a>
 </div>
 {% endblock %}

@@ -14,7 +14,12 @@ class AddFonctionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('code', TextType::class, ['required' => true])
+            ->add('code', TextType::class, [
+                'required' => true,
+                'row_attr' => [
+                    'class' => 'input-group',
+                ],
+                ])
             ->add('LibelleFonction', TextType::class, ['required' => true])
             ->add('Ajouter', SubmitType::class)
 

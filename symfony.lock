@@ -38,6 +38,9 @@
             "./migrations/.gitignore"
         ]
     },
+    "knplabs/knp-menu-bundle": {
+        "version": "v3.2.0"
+    },
     "omines/datatables-bundle": {
         "version": "0.5",
         "recipe": {

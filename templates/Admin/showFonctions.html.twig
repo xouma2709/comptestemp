@@ -3,12 +3,18 @@
 {% block title %}Les fonctions{% endblock %}
 
 {% block body %}
-<ol>
+{% include 'menutab.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="col">
+        <h4>Les fonctions existantes</h4>
+        
+        <ul>
         {% for Fonctions in Fonctions %}
-        <li> {{ Fonctions.LibelleFonction }} <a href="/Admin/deleteFonction/{{ Fonctions.id }}">Supprimer</a></li>
+        <li> {{ Fonctions.LibelleFonction }} ({{ Fonctions.code}}) <a href="/Admin/deleteFonction/{{ Fonctions.id }}"><i class="fa-solid fa-trash" style="color: #48494c;"></i></a></li>
         {% endfor %}
-</ol>
-<div>
-<a href='/Admin'>Retour</a>
+        </ul>
+        
+    </div>
 </div>
 {% endblock %}

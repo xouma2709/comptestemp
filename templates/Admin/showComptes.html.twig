@@ -4,9 +4,12 @@
 
 {% block body %}
 
-<h1>Les comptes temporaires existants</h1>
-<div class="container-fluid">
-<table class="table table-striped table-bordered" id="sortTable">
+{% include 'menutab.html.twig' %}
+
+    <div class="container-fluid">
+        <h1>Les comptes temporaires existants</h1>
+
+        <table class="table table-striped table-bordered" id="sortTable">
 <thead>
 <tr>
 <th>Etat</th>
@@ -14,8 +17,7 @@
 <th>Fonction</th>
 <th>Login</th>
 <th>Mot de passe</th>
-<th>Disponible</th>
-<th>Par :</th>
+<th>Utilisé par :</th>
 <th>Pièce d'identité fournie</th>
 </tr>
 </thead>
@@ -24,9 +26,13 @@
 <tr>
 <td>
 {%if Comptes.IsCreated == 0 %}
-<a href={{ path('changerStatut',{'id': Comptes.id} ) }}>a créer</a>
+<a href={{ path('changerStatut',{'id': Comptes.id} ) }} data-tooltip="Compte à creer dans l'appli"><i class="fa-solid fa-triangle-exclamation" style="color: #ea8d0b;"></i></a> A créer
 {% else %}
-<a href="/changerStatut/{{Comptes.id}}">crée</a>
+{% if Comptes.IsUsed == 0 %}
+<i class="fa-solid fa-square-check" style="color: #11a23c;"></i> Disponible
+{% else %}
+<i class="fa-solid fa-circle-xmark" style="color: #e01039;"></i> Utilisé
+{% endif %}
 
 {% endif %}
 
@@ -37,13 +43,6 @@
 <td>
 {% if Comptes.IsUsed == 0 %}
 {{ Comptes.Password }}
-{% endif %}
-</td>
-<td>
-{% if Comptes.IsUsed == 0 %}
-<i class="fa-solid fa-square-check" style="color: #11a23c;"></i>
-{% else %}
-<i class="fa-solid fa-circle-xmark" style="color: #e01039;"></i>
 {% endif %}
 </td>
 <td>
@@ -76,14 +75,12 @@
 {% endfor %}
 </tbody>
 </table>
-</div>
 
 <script>
 $('#sortTable').DataTable();
 </script>
-<div>
-<a href='/Admin/showLastComptes'>Voir les 10 derniers comptes</a>
 
-<a href='/Admin'>Retour</a>
 </div>
+
+
 {% endblock %}
