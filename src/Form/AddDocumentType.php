@@ -16,7 +16,9 @@ class AddDocumentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Attachment', FileType::class)
+            ->add('Attachment', FileType::class,[
+                'required' => true
+            ])
             ->add('Ajouter', SubmitType::class, ['label' => 'Ajouter Document'])
         ;
     }

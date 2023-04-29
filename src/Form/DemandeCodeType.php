@@ -22,13 +22,13 @@ class DemandeCodeType extends AbstractType
             ->add('Prenom', TextType::class, ['required' => true])
             ->add('DateDebut', DateType::class, [
                 'widget' => 'single_text',
-                'required' => false
+                'required' => true
             ])
             ->add('DateFin', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false
             ])
-            ->add('Secteur', TextType::class)
+            ->add('Secteur', TextType::class, ['required' => false])
             ->add('Softs', EntityType::class,[
                 'class' => Softs::class,
                 'choice_label' => 'Libellesoft',

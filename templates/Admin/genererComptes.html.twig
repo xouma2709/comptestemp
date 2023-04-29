@@ -6,16 +6,10 @@
 {% include 'menutab.html.twig' %}
 
     <div class="container-fluid">
-                <div class="row">
-            <div class="col s12 m12 l12">
-                <h4>Générer des comptes pour</h4>
-            </div>
-        </div>
 
  {{ form_start(form)}}  
  <form>
-    <h4>Ajout d'une fonction</h4>
-
+    <h4>Générer des comptes pour</h4>
     <div class="form-row">
         <div class="form-group col-md-1">
         <label>{{ form_label(form.Soft)}}</label> 
@@ -36,7 +30,7 @@
         {{ form_label(form.Generer_10_comptes)}}
         {{ form_widget(form.Generer_10_comptes, {'attr': {'class':'btn btn-dark btn-block'}})}}
             </div></div>
-
+            {{ form_rest(form) }}
         {{ form_end(form)}}    </div>
 <div>
 

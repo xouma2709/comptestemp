@@ -279,7 +279,7 @@ class AdminController extends AbstractController
      */
     public function showComptesUsed(ComptesRepository $repo, AgentsRepository $repoagents){
         //Requete pour recuperer les comptes deja créés
-        $comptes = $repo->findBy(['IsUsed' => 1],['id'=>'asc'],10);;
+        $comptes = $repo->findBy(['IsUsed' => 1],['id'=>'asc'],);;
         $agents = $repoagents->findAll();
         //Affichage de la page
         return $this->render('Admin/showComptes.html.twig', ['Comptes' => $comptes, 'Agents' => $agents]);

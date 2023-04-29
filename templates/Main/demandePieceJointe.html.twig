@@ -3,12 +3,14 @@
 {% block title %}Demander un code temporaire{% endblock %}
 
 {% block body %}
+<div class="container-fluid">
 Vous avez demandé un code temporaire {{ Agents.Softs.LibelleSoft }} pour l'agent
 {{ Agents.Nom }} {{ Agents.Prenom }}
 
 Avez-vous sa pièce d'identité?
-
-<a href="/Main/{{ Agents.id }}/affichercode">Non</a>
-<a href="/Main/{{ Agents.id }}/ajoutpj">Oui</a>
-
+<p>
+<a href="/Main/{{ Agents.id }}/affichercode" class="btn btn-danger">Non</a>
+<a href="/Main/{{ Agents.id }}/ajoutpj" class="btn btn-dark">Oui</a>
+</p>
+</div>
 {% endblock %}

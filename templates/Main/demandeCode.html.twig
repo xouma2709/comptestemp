@@ -3,30 +3,60 @@
 {% block title %}Demander un code temporaire{% endblock %}
 
 {% block body %}
-   <h3>Demande de code temporaire</h3>
-        {{ form_start(form)}}  
+<div class="container-fluid">
+
+{{ form_start(form)}}  
+<form>
+<h3>Demande de code temporaire</h3>
+
+<div class="form-row">
+<div class="form-group col-md-2">
+
+<label>{{ form_label(form.Nom)}}</label>
+{{ form_widget(form.Nom, {'attr': {'class':'form-control'}})}}
+</div>
+<div class="form-group col-md-2">
 
 
-        {{ form_label(form.Nom)}}
-        {{ form_widget(form.Nom)}}
-        {{ form_label(form.Prenom)}}
-        {{ form_widget(form.Prenom)}}
-        {{ form_label(form.DateDebut)}}
-        {{ form_widget(form.DateDebut)}}</div>
-        {{ form_label(form.DateFin)}}
-        {{ form_widget(form.DateFin)}}
-        {{ form_label(form.Secteur)}}
-        {{ form_widget(form.Secteur)}}
-        {{ form_label(form.Softs)}}
-        {{ form_widget(form.Softs)}}
-        {{ form_label(form.Fonction)}}
-        {{ form_widget(form.Fonction)}}
-        {{ form_label(form.Ajouter)}}
-        {{ form_widget(form.Ajouter)}}
+<label>{{ form_label(form.Prenom)}}</label>
+{{ form_widget(form.Prenom, {'attr': {'class':'form-control'}})}}
+</div></div>
+<div class="form-row">
+<div class="form-group col-md-2">
+{{ form_label(form.DateDebut)}}
+{{ form_widget(form.DateDebut, {'attr': {'class':'form-control'}})}}
+</div>
+<div class="form-group col-md-2">
+{{ form_label(form.DateFin)}}
+{{ form_widget(form.DateFin, {'attr': {'class':'form-control'}})}}
+</div>
+</div>
+<div class="form-row">
+<div class="form-group col-md-4">
+{{ form_label(form.Secteur)}}
+{{ form_widget(form.Secteur, {'attr': {'class':'form-control'}})}}
+</div></div>
+<div class="form-row">
+<div class="form-group col-md-2">
+{{ form_label(form.Fonction)}}
+{{ form_widget(form.Fonction, {'attr': {'class':'form-control'}})}}
 
+</div>
+<div class="form-group col-md-2">
+{{ form_label(form.Softs)}}
+{{ form_widget(form.Softs, {'attr': {'class':'form-control'}})}}
 
-        {{ form_end(form)}}
+</div></div>
+<div class="form-row">
 
+        <div class="form-group col-4">
+{{ form_label(form.Ajouter)}}
+{{ form_widget(form.Ajouter, {'attr': {'class':'btn btn-dark btn-block'}})}}
+        </div></div>
+        {{ form_rest(form) }}
+{{ form_end(form)}}
+</form>
+</div>
 
 
 
