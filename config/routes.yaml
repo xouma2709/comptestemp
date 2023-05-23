@@ -1,6 +1,8 @@
-index:
-    path: /
-    controller: App\Controller\SecurityController::index
+
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
 
 admin:
     path: /Admin
@@ -9,3 +11,7 @@ admin:
 default:
     path: /Main
     controller: App\Controller\MainController::demandeCode
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::login

@@ -63,7 +63,7 @@ class Agents
     private $Compte;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateDemande;
 
@@ -76,6 +76,11 @@ class Agents
      * @ORM\Column(type="boolean")
      */
     private $isPJ;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Demandeur;
 
     public function __construct()
     {
@@ -233,6 +238,18 @@ class Agents
     public function setIsPJ(bool $isPJ): self
     {
         $this->isPJ = $isPJ;
+
+        return $this;
+    }
+
+    public function getDemandeur(): ?string
+    {
+        return $this->Demandeur;
+    }
+
+    public function setDemandeur(string $Demandeur): self
+    {
+        $this->Demandeur = $Demandeur;
 
         return $this;
     }

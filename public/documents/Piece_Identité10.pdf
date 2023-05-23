@@ -1,0 +1,226 @@
+<XMLDATA><?xml version="1.0" encoding="ISO-8859-1"  ?>
+<evenementsServeurActes acquittementAttendu="non" version="1.04" xmlns="http://www.hprim.org/hprimXML"  >
+    <enteteMessage modeTraitement="réel" >
+        <identifiantMessage>A10001565506</identifiantMessage>
+        <dateHeureProduction>2023-03-17T15:32:53</dateHeureProduction>
+        <emetteur>
+            <agents>
+                <agent categorie="application">
+                    <code>XPLORE</code>
+                    <libelle>XPLORE</libelle>
+                </agent>
+            </agents>
+        </emetteur>
+        <destinataire>
+            <agents>
+                <agent categorie="application">
+                    <code>M-GAM</code>
+                    <libelle>M-GAM</libelle>
+                </agent>
+            </agents>
+        </destinataire>
+
+    </enteteMessage>
+    <evenementServeurActe>
+
+
+
+        <patient confidentiel="non" anonyme="non">
+            <identifiant>
+                <emetteur etat="permanent" portee="local" referent="oui"><valeur>000012345672</valeur></emetteur>
+                <recepteur etat="permanent" portee="local" referent="oui"><valeur>000012345672</valeur></recepteur>
+                <numeroIdentifiantSante><identifiant>0945712542986879943273</identifiant></numeroIdentifiantSante>
+
+            </identifiant>
+            <personnePhysique sexe="M" informationQualifiee="oui">
+                <nomUsuel>VAN GHELUWE</nomUsuel>
+                <nomNaissance>VAN GHELUWE</nomNaissance>
+                <prenoms><prenom>PIERRE</prenom></prenoms>
+                <adresses><adresse><ligne>9  RUE CLEMENT MAROT</ligne><ville>CALAIS</ville><codePostal>62100</codePostal></adresse></adresses>
+
+                <dateNaissance><date>1941-06-25</date></dateNaissance>
+
+
+
+            </personnePhysique>
+        </patient>
+        <venue>
+            <identifiant>
+               <emetteur><valeur>900756873</valeur></emetteur>
+               <recepteur><valeur>900756873</valeur></recepteur>
+
+            </identifiant>
+
+            <entree>
+                <dateHeureOptionnelle><date>2023-02-06</date></dateHeureOptionnelle>
+            </entree>
+            <medecins><medecin lien="trt"><noRPPS>10002275609</noRPPS><personne><nomUsuel>KRASINSKI</nomUsuel><prenoms><prenom>PASCAL</prenom></prenoms><adresses><adresse><ligne>65 RUE LAMARTINE</ligne><ville>CALAIS</ville><codePostal>62100</codePostal></adresse></adresses></personne></medecin></medecins>
+
+        </venue>
+        <intervention>
+            <identifiant>
+                <emetteur>C10000334935</emetteur>
+            </identifiant>
+            <debut>
+                <date>2023-02-06</date>
+                <heure>12:41:00</heure>
+            </debut>
+
+
+
+
+            <demande>
+
+                <datePrescription>
+                    <date>2023-02-06</date>
+                    <heure>12:41:00</heure>
+                </datePrescription>
+                <uniteFonctionnelle><code><uniteFonctionnelle><code>2005</code></uniteFonctionnelle></code></uniteFonctionnelle>
+                <medecin lien="prsc"><noRPPS>10100257400</noRPPS><personne><nomUsuel>KHACHFE</nomUsuel><prenoms><prenom>ALI</prenom></prenoms><adresses><adresse><ligne>1601 Boulevard DES JUSTES</ligne><ville>CALAIS</ville><codePostal>62107</codePostal></adresse></adresses></personne></medecin>
+
+
+            </demande>
+
+
+
+        </intervention>
+<actesCCAM>
+            <acteCCAM action="modification"  valide="non" facturable="oui" remboursementExceptionnel="non" gratuit="non"         >
+
+
+                <identifiant><emetteur portee="local">C10000728350</emetteur></identifiant>
+                <codeActe>ZCQN001</codeActe>
+
+                <codeActivite>1</codeActivite>
+                <codePhase>0</codePhase>
+                <execute>
+                    <date>2023-02-06</date>
+                    <heure>12:41:00</heure>
+                </execute>
+                <executant>
+                    <medecins>
+                        <medecinExecutant principal="oui"><medecin><noRPPS>10003801908</noRPPS><identification><code>033704</code></identification><personne><nomUsuel>TAYEB</nomUsuel><prenoms><prenom>MOHAMAD</prenom></prenoms></personne></medecin></medecinExecutant>
+
+
+                    </medecins>
+                    <uniteFonctionnelle><code>6286</code></uniteFonctionnelle>
+                </executant>
+
+                <codeAssociationNonPrevue>1</codeAssociationNonPrevue>
+
+
+
+
+
+
+
+
+
+
+            </acteCCAM>
+
+
+            <acteCCAM action="modification"  valide="non" facturable="oui" remboursementExceptionnel="non" gratuit="non"         >
+
+
+                <identifiant><emetteur portee="local">C10000728353</emetteur></identifiant>
+                <codeActe>YYYY600</codeActe>
+
+                <codeActivite>1</codeActivite>
+                <codePhase>0</codePhase>
+                <execute>
+                    <date>2023-02-06</date>
+                    <heure>12:41:00</heure>
+                </execute>
+                <executant>
+                    <medecins>
+                        <medecinExecutant principal="oui"><medecin><noRPPS>10003801908</noRPPS><identification><code>033704</code></identification><personne><nomUsuel>TAYEB</nomUsuel><prenoms><prenom>MOHAMAD</prenom></prenoms></personne></medecin></medecinExecutant>
+
+
+                    </medecins>
+                    <uniteFonctionnelle><code>6286</code></uniteFonctionnelle>
+                </executant>
+
+                <codeAssociationNonPrevue>1</codeAssociationNonPrevue>
+
+
+
+
+
+
+
+
+
+
+            </acteCCAM>
+
+
+            <acteCCAM action="modification"  valide="non" facturable="non" remboursementExceptionnel="non" gratuit="non"         >
+
+
+                <identifiant><emetteur portee="local">C10000728356</emetteur></identifiant>
+                <codeActe>ZZQN002</codeActe>
+
+                <codeActivite>1</codeActivite>
+                <codePhase>0</codePhase>
+                <execute>
+                    <date>2023-02-06</date>
+                    <heure>12:41:00</heure>
+                </execute>
+                <executant>
+                    <medecins>
+                        <medecinExecutant principal="oui"><medecin><noRPPS>10003801908</noRPPS><identification><code>033704</code></identification><personne><nomUsuel>TAYEB</nomUsuel><prenoms><prenom>MOHAMAD</prenom></prenoms></personne></medecin></medecinExecutant>
+
+
+                    </medecins>
+                    <uniteFonctionnelle><code>6286</code></uniteFonctionnelle>
+                </executant>
+
+                <codeAssociationNonPrevue>1</codeAssociationNonPrevue>
+
+
+
+
+                <montant liberal="oui"></montant>
+
+
+
+
+
+            </acteCCAM>
+       </actesCCAM>
+<actesNGAP>
+<acteNGAP action="modification" valide="non" facturable="oui"     gratuit="non"    >
+
+
+               <identifiant><emetteur portee="local">C10000728360</emetteur></identifiant>
+               <lettreCle>INB</lettreCle>
+               <coefficient>1.00</coefficient>
+
+
+               <quantite>1</quantite>
+               <execute>
+                    <date>2023-02-06</date>
+                    <heure>12:41:00</heure>
+               </execute>
+               <prestataire>
+                   <medecins>
+                        <medecin lien="exec"><numeroAdeli>620000323</numeroAdeli><identification><code>033704</code></identification><personne><nomUsuel>TAYEB</nomUsuel><prenoms><prenom>MOHAMAD</prenom></prenoms></personne></medecin>
+
+
+                   </medecins>
+                   <uniteFonctionnelle><code>6286</code></uniteFonctionnelle>
+               </prestataire>
+
+
+
+
+               <montant modeTraitement="19" disciplineTraitement="0" ><montantTotal>166.05</montantTotal><numeroForfaitTechnique>569</numeroForfaitTechnique></montant>
+
+
+
+           </acteNGAP>
+</actesNGAP>
+</evenementServeurActe>
+</evenementsServeurActes>
+</XMLDATA>

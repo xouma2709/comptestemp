@@ -12,10 +12,14 @@ use App\Repository\ComptesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 
 class MainController extends AbstractController
 {
@@ -27,6 +31,17 @@ class MainController extends AbstractController
         $agent= new Agents();
         $form = $this->createForm(DemandeCodeType::class, $agent);
         $today = date('Y-m-d');
+        date_default_timezone_set('UTC');
+        $jour = date('l');
+        $heure = date('H:i');
+        $user = $this->getUser();
+        $extrafields = $user->getextraFields();
+        $maildemandeur = $extrafields['mail'][0];
+        $comptedemandeur = $user->getUsername();
+        $identitedemandeur = $extrafields['displayName'][0];
+        $demandeur = "le compte a été demandé par ".$identitedemandeur." avec le compte ".$comptedemandeur.". Mail : ".$maildemandeur;
+        
+
 
 
 
@@ -40,12 +55,46 @@ class MainController extends AbstractController
         $nomagent = $agent->getNom();
         $nomagent=strtoupper($nomagent);
         $prenomagent = $agent->getPrenom();
-        $prenomagents = ucwords($prenomagent);
+        $prenomagent = ucwords($prenomagent);
+
+
         //On vérifie sur vision que l'agent n'est pas connu
-        
-
+        $link = mysqli_connect('10.250.1.252:3306', 'userReadOnly', 'Applicatif$1', 'gestioncomptes') or die("Erreur de connexion"); 
+        $req = mysqli_query($link, "SELECT * FROM agents WHERE nom = '.$nomagent.' AND prenom = '.$prenomagent.'");
+        $count = mysqli_num_rows($req);
         //Si l'agent est connu des services informatique
+            if ($count > 0 ){
+                switch ($jour){
+                    case "Monday":
+                    case "Tuesday":
+                    case "Wednesday":
+                    case "Thursday":
+                    case "Friday":
+                        if ($heure > '06:00' && $heure < '15:00'){
+                                    return $this->render('Main/infoouvert.html.twig',['Agents' => $agent]);
 
+                        }
+                        else{
+                            return $this->render('Main/astreintetech.html.twig',['Agents' => $agent]);
+
+                        }
+                        break;
+                    
+                    case "Saturday":
+                    case "Sunday":
+                        if ($heure > '06:00' && $heure < '16:00'){
+                            return $this->render('Main/astreinteappli.html.twig',['Agents' => $agent]);
+
+                        }
+                        else{
+                            echo 'Astreinte technique';
+                            return $this->render('Main/astreintetech.html.twig',['Agents' => $agent]);
+
+                        }
+                        break;
+
+                }
+            }else{
 
         //S'il n'est pas connu
         
@@ -61,7 +110,8 @@ class MainController extends AbstractController
 
         //On attribut le compte à l'agent
         $agent -> setCompte($compteagent);
-        $agent -> setDateDemande(\DateTime::createFromFormat ('Y-m-d', $today));        
+        $agent -> setDateDemande(\DateTime::createFromFormat ('Y-m-d', $today));   
+        $agent -> setDemandeur($demandeur);
         $agent->setIsPJ(0);
         //On envoie l'agent dans la bdd
         $em ->persist($agent);
@@ -71,6 +121,8 @@ class MainController extends AbstractController
 
 
         return $this->render('Main/demandePieceJointe.html.twig',['Agents' => $agent]);
+
+            }
 
         }
 
@@ -91,9 +143,10 @@ class MainController extends AbstractController
     /**
      * @Route("/Main/{id}/ajoutpj", name="ajoutpj")
      */
-    public function ajoutPJ($id, Request $request, EntityManagerInterface $em, AgentsRepository $repo, MailerInterface $mailer)
+    public function ajoutPJ($id, Request $request, EntityManagerInterface $em, AgentsRepository $repo, MailerInterface $mailer,MailerInterface $mailer_mdp, ComptesRepository $repocomptes)
     {
         $agent = $repo->find($id);
+        $compte = $agent->getCompte();
         $doc= new Documents();
         $form = $this->createForm(AddDocumentType::class, $doc);
 
@@ -120,6 +173,19 @@ class MainController extends AbstractController
            $agent->setIsPJ(1);
            $em->persist($agent);
            $em->flush();
+
+           $email = (new TemplatedEmail())
+           -> from('dpi@ch-calais.fr')
+           -> to('m.houzet@ch-calais.fr')
+           -> subject('Une demande de code temporaire a été intitiée')
+           -> htmlTemplate('Emails/demandecodeaboutie.html.twig')
+           -> context([
+                'Agents' => $agent,
+                'Comptes' => $compte
+           ]);
+           $mailer->send($email);
+
+
         return $this->render('Main/affichageCode.html.twig',['Agents' => $agent]);
 
 

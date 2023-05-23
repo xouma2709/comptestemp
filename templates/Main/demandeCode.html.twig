@@ -5,6 +5,9 @@
 {% block body %}
 <div class="container-fluid">
 
+
+Bonjour {{ app.user.extraFields.displayName[0]}}
+
 {{ form_start(form)}}  
 <form>
 <h3>Demande de code temporaire</h3>

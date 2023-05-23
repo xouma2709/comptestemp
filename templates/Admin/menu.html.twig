@@ -1,56 +1,37 @@
-<nav class="main-menu">
-    <ul>
-        <li>
-            <a href="/Admin/addFonction">
-                <i class="fa fa-home fa-2x"></i>
-                <span class="nav-text">
-                    Ajouter fonction
-                </span>
-            </a>
-          
-        </li>
-        <li class="has-subnav">
-            <a href="/Admin/showFonctions">
-                <i class="fa fa-globe fa-2x"></i>
-                <span class="nav-text">
-                    Voir fonctions
-                </span>
-            </a>
-            
-        </li>
-        <li class="has-subnav">
-            <a href="/Admin/addSoft">
-               <i class="fa fa-comments fa-2x"></i>
-                <span class="nav-text">
-                    Ajouter soft
-                </span>
-            </a>
-            
-        </li>
-        <li class="has-subnav">
-            <a href="/Admin/showSofts">
-               <i class="fa fa-camera-retro fa-2x"></i>
-                <span class="nav-text">
-                    Voir softs
-                </span>
-            </a>
-           
-        </li>
-        <li>
-            <a href="/Admin/genererComptes">
-                <i class="fa fa-film fa-2x"></i>
-                <span class="nav-text">
-                    Génerer des comptes temporaires
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="/Admin/showComptes">
-                <i class="fa fa-book fa-2x"></i>
-                <span class="nav-text">
-                    Voir les comptes temporaires
-                </span>
-            </a>
-        </li>
-    </ul>
-</nav>
+<ul class="nav nav-tabs navbar-dark bg-dark" id="myDIV" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" href="/Main" id="link1" >Accueil</a>
+     </li>
+    <li class="nav-item">
+       <a class="nav-link" href="/Admin/addFonction" id="link2" >Ajout fonction</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/Admin/showFonctions" id="link3">Voir fonctions</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Admin/addSoft" id="link4">Ajout soft</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Admin/showSofts" id="link5">Vois softs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Admin/genererComptes" id="link6">Génerer comptes</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Voir Comptes
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/Admin/showComptesUsed">Utilisés</a>
+          <a class="dropdown-item" href="/Admin/showComptesDispo">Disponibles</a>
+          <a class="dropdown-item" href="/Admin/showLastComptes">Les 10 derniers créés</a>
+          <div class="dropdown-divider"></div>
+
+          <a class="dropdown-item" href="/Admin/showComptes">Tous</a>
+
+        </div>
+      </li>
+
+  </ul>
+
+ 

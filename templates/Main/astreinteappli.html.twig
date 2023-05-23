@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande approuvée{% endblock %}
+
+{% block body %}
+<p>Résumé de la demande : </p>
+<p>Demande de code effectuée pour l'agent {{ Agents.Nom }} {{ Agents.Prenom }}</p>
+<p>Cet agent est connu des services informatiques</p>
+<p>Merci de contacter l'astreinte au 28070</p>
+<p>Rappel les demandes de codes doivent être effectuées par mail à l'adresse : <a href="mailto:dpi@ch-calais.fr">dpi@ch-calais.fr<p>
+
+{% endblock %}
